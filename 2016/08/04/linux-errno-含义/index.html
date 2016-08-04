@@ -84,12 +84,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="游戏编程">
-<meta property="og:url" content="http://mmogamecoder.com/index.html">
+<meta name="description" content="Linux errno 注解分布在两个文件中，罗列于此，方便查阅。
+/usr/include/asm-generic/errno-base.h123456789101112131415161718192021222324252627282930313233343536373839#ifndef _ASM_GENERIC_ERRNO_BASE_H#define _ASM_GENERIC_ERRNO_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux errno 含义">
+<meta property="og:url" content="http://mmogamecoder.com/2016/08/04/linux-errno-含义/index.html">
 <meta property="og:site_name" content="游戏编程">
+<meta property="og:description" content="Linux errno 注解分布在两个文件中，罗列于此，方便查阅。
+/usr/include/asm-generic/errno-base.h123456789101112131415161718192021222324252627282930313233343536373839#ifndef _ASM_GENERIC_ERRNO_BASE_H#define _ASM_GENERIC_ERRNO_">
+<meta property="og:updated_time" content="2016-08-04T06:08:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="游戏编程">
+<meta name="twitter:title" content="linux errno 含义">
+<meta name="twitter:description" content="Linux errno 注解分布在两个文件中，罗列于此，方便查阅。
+/usr/include/asm-generic/errno-base.h123456789101112131415161718192021222324252627282930313233343536373839#ifndef _ASM_GENERIC_ERRNO_BASE_H#define _ASM_GENERIC_ERRNO_">
 
 
 
@@ -110,9 +117,9 @@
 
 
 
-  <link rel="canonical" href="http://mmogamecoder.com/"/>
+  <link rel="canonical" href="http://mmogamecoder.com/2016/08/04/linux-errno-含义/"/>
 
-  <title> 游戏编程 </title>
+  <title> linux errno 含义 | 游戏编程 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -143,9 +150,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -222,9 +227,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -244,10 +249,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/08/04/linux-errno-含义/" itemprop="url">
-                  linux errno 含义
-                </a>
+                linux errno 含义
               
             
           </h1>
@@ -313,22 +315,24 @@
       
 
       
-        
-          
-            <p><strong>Linux errno 注解分布在两个文件中，罗列于此，方便查阅。</strong></p>
+        <p><strong>Linux errno 注解分布在两个文件中，罗列于此，方便查阅。</strong></p>
 <h3 id="usr-include-asm-generic-errno-base-h"><a href="#usr-include-asm-generic-errno-base-h" class="headerlink" title="/usr/include/asm-generic/errno-base.h"></a>/usr/include/asm-generic/errno-base.h</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">#ifndef _ASM_GENERIC_ERRNO_BASE_H</div><div class="line">#define _ASM_GENERIC_ERRNO_BASE_H</div><div class="line"></div><div class="line">#define EPERM            1      /* Operation not permitted */</div><div class="line">#define ENOENT           2      /* No such file or directory */</div><div class="line">#define ESRCH            3      /* No such process */</div><div class="line">#define EINTR            4      /* Interrupted system call */</div><div class="line">#define EIO              5      /* I/O error */</div><div class="line">#define ENXIO            6      /* No such device or address */</div><div class="line">#define E2BIG            7      /* Argument list too long */</div><div class="line">#define ENOEXEC          8      /* Exec format error */</div><div class="line">#define EBADF            9      /* Bad file number */</div><div class="line">#define ECHILD          10      /* No child processes */</div><div class="line">#define EAGAIN          11      /* Try again */</div><div class="line">#define ENOMEM          12      /* Out of memory */</div><div class="line">#define EACCES          13      /* Permission denied */</div><div class="line">#define EFAULT          14      /* Bad address */</div><div class="line">#define ENOTBLK         15      /* Block device required */</div><div class="line">#define EBUSY           16      /* Device or resource busy */</div><div class="line">#define EEXIST          17      /* File exists */</div><div class="line">#define EXDEV           18      /* Cross-device link */</div><div class="line">#define ENODEV          19      /* No such device */</div><div class="line">#define ENOTDIR         20      /* Not a directory */</div><div class="line">#define EISDIR          21      /* Is a directory */</div><div class="line">#define EINVAL          22      /* Invalid argument */</div><div class="line">#define ENFILE          23      /* File table overflow */</div><div class="line">#define EMFILE          24      /* Too many open files */</div><div class="line">#define ENOTTY          25      /* Not a typewriter */</div><div class="line">#define ETXTBSY         26      /* Text file busy */</div><div class="line">#define EFBIG           27      /* File too large */</div><div class="line">#define ENOSPC          28      /* No space left on device */</div><div class="line">#define ESPIPE          29      /* Illegal seek */</div><div class="line">#define EROFS           30      /* Read-only file system */</div><div class="line">#define EMLINK          31      /* Too many links */</div><div class="line">#define EPIPE           32      /* Broken pipe */</div><div class="line">#define EDOM            33      /* Math argument out of domain of func */</div><div class="line">#define ERANGE          34      /* Math result not representable */</div><div class="line"></div><div class="line">#endif</div></pre></td></tr></table></figure>
 <h3 id="usr-include-asm-generic-errno-h"><a href="#usr-include-asm-generic-errno-h" class="headerlink" title="/usr/include/asm-generic/errno.h"></a>/usr/include/asm-generic/errno.h</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line">#ifndef _ASM_GENERIC_ERRNO_H</div><div class="line">#define _ASM_GENERIC_ERRNO_H</div><div class="line"></div><div class="line">#include &lt;asm-generic/errno-base.h&gt;</div><div class="line"></div><div class="line">#define EDEADLK         35      /* Resource deadlock would occur */</div><div class="line">#define ENAMETOOLONG    36      /* File name too long */</div><div class="line">#define ENOLCK          37      /* No record locks available */</div><div class="line">#define ENOSYS          38      /* Function not implemented */</div><div class="line">#define ENOTEMPTY       39      /* Directory not empty */</div><div class="line">#define ELOOP           40      /* Too many symbolic links encountered */</div><div class="line">#define EWOULDBLOCK     EAGAIN  /* Operation would block */</div><div class="line">#define ENOMSG          42      /* No message of desired type */</div><div class="line">#define EIDRM           43      /* Identifier removed */</div><div class="line">#define ECHRNG          44      /* Channel number out of range */</div><div class="line">#define EL2NSYNC        45      /* Level 2 not synchronized */</div><div class="line">#define EL3HLT          46      /* Level 3 halted */</div><div class="line">#define EL3RST          47      /* Level 3 reset */</div><div class="line">#define ELNRNG          48      /* Link number out of range */</div><div class="line">#define EUNATCH         49      /* Protocol driver not attached */</div><div class="line">#define ENOCSI          50      /* No CSI structure available */</div><div class="line">#define EL2HLT          51      /* Level 2 halted */</div><div class="line">#define EBADE           52      /* Invalid exchange */</div><div class="line">#define EBADR           53      /* Invalid request descriptor */</div><div class="line">#define EXFULL          54      /* Exchange full */</div><div class="line">#define ENOANO          55      /* No anode */</div><div class="line">#define EBADRQC         56      /* Invalid request code */</div><div class="line">#define EBADSLT         57      /* Invalid slot */</div><div class="line"></div><div class="line">#define EDEADLOCK       EDEADLK</div><div class="line"></div><div class="line">#define EBFONT          59      /* Bad font file format */</div><div class="line">#define ENOSTR          60      /* Device not a stream */</div><div class="line">#define ENODATA         61      /* No data available */</div><div class="line">#define ETIME           62      /* Timer expired */</div><div class="line">#define ENOSR           63      /* Out of streams resources */</div><div class="line">#define ENONET          64      /* Machine is not on the network */</div><div class="line">#define ENOPKG          65      /* Package not installed */</div><div class="line">#define EREMOTE         66      /* Object is remote */</div><div class="line">#define ENOLINK         67      /* Link has been severed */</div><div class="line">#define EADV            68      /* Advertise error */</div><div class="line">#define ESRMNT          69      /* Srmount error */</div><div class="line">#define ECOMM           70      /* Communication error on send */</div><div class="line">#define EPROTO          71      /* Protocol error */</div><div class="line">#define EMULTIHOP       72      /* Multihop attempted */</div><div class="line">#define EDOTDOT         73      /* RFS specific error */</div><div class="line">#define EBADMSG         74      /* Not a data message */</div><div class="line">#define EOVERFLOW       75      /* Value too large for defined data type */</div><div class="line">#define ENOTUNIQ        76      /* Name not unique on network */</div><div class="line">#define EBADFD          77      /* File descriptor in bad state */</div><div class="line">#define EREMCHG         78      /* Remote address changed */</div><div class="line">#define ELIBACC         79      /* Can not access a needed shared library */</div><div class="line">#define ELIBBAD         80      /* Accessing a corrupted shared library */</div><div class="line">#define ELIBSCN         81      /* .lib section in a.out corrupted */</div><div class="line">#define ELIBMAX         82      /* Attempting to link in too many shared libraries */</div><div class="line">#define ELIBEXEC        83      /* Cannot exec a shared library directly */</div><div class="line">#define EILSEQ          84      /* Illegal byte sequence */</div><div class="line">#define ERESTART        85      /* Interrupted system call should be restarted */</div><div class="line">#define ESTRPIPE        86      /* Streams pipe error */</div><div class="line">#define EUSERS          87      /* Too many users */</div><div class="line">#define ENOTSOCK        88      /* Socket operation on non-socket */</div><div class="line">#define EDESTADDRREQ    89      /* Destination address required */</div><div class="line">#define EMSGSIZE        90      /* Message too long */</div><div class="line">#define EPROTOTYPE      91      /* Protocol wrong type for socket */</div><div class="line">#define ENOPROTOOPT     92      /* Protocol not available */</div><div class="line">#define EPROTONOSUPPORT 93      /* Protocol not supported */</div><div class="line">#define ESOCKTNOSUPPORT 94      /* Socket type not supported */</div><div class="line">#define EOPNOTSUPP      95      /* Operation not supported on transport endpoint */</div><div class="line">#define EPFNOSUPPORT    96      /* Protocol family not supported */</div><div class="line">#define EAFNOSUPPORT    97      /* Address family not supported by protocol */</div><div class="line">#define EADDRINUSE      98      /* Address already in use */</div><div class="line">#define EADDRNOTAVAIL   99      /* Cannot assign requested address */</div><div class="line">#define ENETDOWN        100     /* Network is down */</div><div class="line">#define ENETUNREACH     101     /* Network is unreachable */</div><div class="line">#define ENETRESET       102     /* Network dropped connection because of reset */</div><div class="line">#define ECONNABORTED    103     /* Software caused connection abort */</div><div class="line">#define ECONNRESET      104     /* Connection reset by peer */</div><div class="line">#define ENOBUFS         105     /* No buffer space available */</div><div class="line">#define EISCONN         106     /* Transport endpoint is already connected */</div><div class="line">#define ENOTCONN        107     /* Transport endpoint is not connected */</div><div class="line">#define ESHUTDOWN       108     /* Cannot send after transport endpoint shutdown */</div><div class="line">#define ETOOMANYREFS    109     /* Too many references: cannot splice */</div><div class="line">#define ETIMEDOUT       110     /* Connection timed out */</div><div class="line">#define ECONNREFUSED    111     /* Connection refused */</div><div class="line">#define EHOSTDOWN       112     /* Host is down */</div><div class="line">#define EHOSTUNREACH    113     /* No route to host */</div><div class="line">#define EALREADY        114     /* Operation already in progress */</div><div class="line">#define EINPROGRESS     115     /* Operation now in progress */</div><div class="line">#define ESTALE          116     /* Stale NFS file handle */</div><div class="line">#define EUCLEAN         117     /* Structure needs cleaning */</div><div class="line">#define ENOTNAM         118     /* Not a XENIX named type file */</div><div class="line">#define ENAVAIL         119     /* No XENIX semaphores available */</div><div class="line">#define EISNAM          120     /* Is a named type file */</div><div class="line">#define EREMOTEIO       121     /* Remote I/O error */</div><div class="line">#define EDQUOT          122     /* Quota exceeded */</div><div class="line"></div><div class="line">#define ENOMEDIUM       123     /* No medium found */</div><div class="line">#define EMEDIUMTYPE     124     /* Wrong medium type */</div><div class="line">#define ECANCELED       125     /* Operation Canceled */</div><div class="line">#define ENOKEY          126     /* Required key not available */</div><div class="line">#define EKEYEXPIRED     127     /* Key has expired */</div><div class="line">#define EKEYREVOKED     128     /* Key has been revoked */</div><div class="line">#define EKEYREJECTED    129     /* Key was rejected by service */</div><div class="line"></div><div class="line">/* for robust mutexes */</div><div class="line">#define EOWNERDEAD      130     /* Owner died */</div><div class="line">#define ENOTRECOVERABLE 131     /* State not recoverable */</div><div class="line"></div><div class="line">#define ERFKILL         132     /* Operation not possible due to RF-kill */</div><div class="line"></div><div class="line">#define EHWPOISON       133     /* Memory page has hardware error */</div><div class="line"></div><div class="line">#endif</div></pre></td></tr></table></figure>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
@@ -336,237 +340,32 @@
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/07/30/游戏服务器编程概述/" rel="next" title="游戏服务器编程概述">
+                <i class="fa fa-chevron-left"></i> 游戏服务器编程概述
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016/07/30/游戏服务器编程概述/" itemprop="url">
-                  游戏服务器编程概述
-                </a>
-              
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-30T18:09:45+08:00" content="2016-07-30">
-              2016-07-30
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/基础/" itemprop="url" rel="index">
-                    <span itemprop="name">基础</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/30/游戏服务器编程概述/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/30/游戏服务器编程概述/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h2 id="规范-golang"><a href="#规范-golang" class="headerlink" title="规范 - golang"></a><a name="norm"></a>规范 - golang</h2><hr>
-<ul>
-<li>函数注释</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// fn意图</span></div><div class="line"><span class="comment">// @param p1 - 第一个参数(p1含义)</span></div><div class="line"><span class="comment">// @param p2 - 第二个参数(p2含义)</span></div><div class="line"><span class="comment">// @return r1(or TYPE) - 第一个返回值(如果函数返回值没有定义名称标注类型)</span></div><div class="line"><span class="comment">// @return r2(or TYPE) - 第二个返回值</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">fn</span><span class="params">(p1 TYPE,p2 TYPE)</span><span class="params">(r1 TYPE, r2 TYPE)</span></span>&#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>import顺序</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> (</div><div class="line">    标准包</div><div class="line"></div><div class="line">    程序内部包</div><div class="line"></div><div class="line">    第三方包</div><div class="line">）</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">  <span class="string">"flag"</span></div><div class="line">  <span class="string">"net/http"</span></div><div class="line"></div><div class="line">  <span class="string">"common"</span></div><div class="line">  <span class="string">"common/zebra"</span></div><div class="line"></div><div class="line">  l4g <span class="string">"github.com/ivanabc/log4go"</span></div><div class="line">)</div></pre></td></tr></table></figure>
-<ul>
-<li><p>命名</p>
-<ul>
-<li><strong>禁止程序中使用缩写或者有歧义的名称</strong>。</li>
-<li><a href="https://zh.wikipedia.org/wiki/%E9%A7%9D%E5%B3%B0%E5%BC%8F%E5%A4%A7%E5%B0%8F%E5%AF%AB" target="_blank" rel="external"><strong>采用驼峰式命名</strong></a>。</li>
-<li><p>形参，局部变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">采用驼峰结构命名，首字母必须小写，不得出现下划线。</div></pre></td></tr></table></figure>
-</li>
-<li><p>常量</p>
-<p><strong> 常量统一采用大写字母，单词之间使用下划线进行分隔。如果是包可见的常量，可在其名字前加上 “k_” 作为前缀。可导出常量与不可导出常量应该分开声明，不得出现在同一常量声明块内。 例如: </strong></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> (</div><div class="line">	k_CONST_A = <span class="number">1</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">const</span> (</div><div class="line">	CONST_A = <span class="number">1</span></div><div class="line">)</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>全局const 和 var位置</p>
-<ul>
-<li>全局const,var变量放在文件最上面（import下面）或者保存在单独的const和var文件中。</li>
-</ul>
-</li>
-<li><p>slice初始化</p>
-<ul>
-<li>已知slice长度，使用make([]type, len)。</li>
-<li>已知slice容量，使用make([]type, 0, cap)。</li>
-</ul>
-</li>
-<li><p>set类型</p>
-<ul>
-<li>使用map[Type]struct{}表示set类型。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a><a name="design"></a>设计</h2><hr>
-<h3 id="基础原则"><a href="#基础原则" class="headerlink" title="基础原则"></a>基础原则</h3><ol>
-<li>模块原则：    使用简洁的接口拼合简单的部件</li>
-<li>清晰原则：    清晰胜于机巧</li>
-<li>组合原则：    设计时考虑拼接组合</li>
-<li>分离原则：    策略同机制分离，接口同引擎分离</li>
-<li>简洁原则：    设计要简洁，复杂度能低则低</li>
-<li>吝啬原则：    除非确无它法，不要编写庞大的程序</li>
-<li>透明性原则：  设计要可见，以便审查和调试</li>
-<li>健壮原则：    健壮源于透明与简洁</li>
-<li>表示原则：    把知识叠入数据以求逻辑质朴而健壮</li>
-<li>通俗原则：    接口设计避免标新立异</li>
-<li>缄默原则：    如果一个程序没什么好说的，就保持沉默</li>
-<li>补救原则：    出现异常时，马上退出并给出足量错误信息</li>
-<li>经济原则：    宁花机器一分，不花程序员一秒</li>
-<li>生成原则：    避免手工hack，尽量编写程序去生成程序</li>
-<li>优化原则：    雕琢前先得有原则，跑之前先学会走</li>
-<li>多样原则：    决不相信所谓不二法门的断言</li>
-<li>扩展原则：    设计着眼未来，未来总比预想快</li>
-</ol>
-<h3 id="面向对象设计"><a href="#面向对象设计" class="headerlink" title="面向对象设计"></a>面向对象设计</h3><h4 id="基本元素"><a href="#基本元素" class="headerlink" title="基本元素"></a>基本元素</h4><ul>
-<li>封装 </li>
-<li>继承 </li>
-<li>多态</li>
-</ul>
-<h4 id="基本原则-S-O-L-I-D"><a href="#基本原则-S-O-L-I-D" class="headerlink" title="基本原则(S.O.L.I.D))"></a><a href="https://en.wikipedia.org/wiki/SOLID\_\(object-oriented_design\" target="_blank" rel="external">基本原则(S.O.L.I.D)</a>)</h4><ol>
-<li>单一责任</li>
-<li>开放封闭</li>
-<li>里氏替换</li>
-<li>接口隔离</li>
-<li>依赖倒置</li>
-</ol>
-<h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a><a href="https://book.douban.com/subject/1052241/" target="_blank" rel="external">设计模式</a></h3><h3 id="项目原则-参考"><a href="#项目原则-参考" class="headerlink" title="项目原则 参考"></a>项目原则 <a href="http://martinfowler.com/bliki/BeckDesignRules.html" target="_blank" rel="external">参考</a></h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1. Passes the tests</div><div class="line">2. Reveals intention</div><div class="line">3. No duplication</div><div class="line">4. Fewest elements</div><div class="line">5. The rules are in priority order, so &quot;passes the tests&quot; takes priority over &quot;reveals intention&quot;</div></pre></td></tr></table></figure>
-<ol>
-<li>测试，测试再测试</li>
-<li>减少繁琐的继承层次设计</li>
-<li>函数功能单一，避免一个函数实现多种功能</li>
-<li>提取重复代码，避免一点改动多处修改(不只限于函数，还包括类和package)</li>
-<li>注意扩展性和接口设计</li>
-<li>清楚简单的算法的复杂度</li>
-</ol>
-<hr>
-<h2 id="重构"><a href="#重构" class="headerlink" title="重构"></a><a name="refactor"></a>重构</h2><hr>
-<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><pre><code>使软件更加容易被修改和理解。
-</code></pre><h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a><a href="https://book.douban.com/subject/4262627/" target="_blank" rel="external">方法</a></h3><h3 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h3><ul>
-<li>少三<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">原则</div><div class="line">  新代码设计时考虑重构，为后续添加和修改功能留下空间。</div><div class="line"></div><div class="line">代码设计待改进的地方（随后会有相应的案例分析）</div><div class="line">  1. 事件机制</div><div class="line">  2. 商店重复实现</div><div class="line">  3. 各种重置的统一处理</div><div class="line">  4. 微服务化</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a><a name="resource"></a>资料</h2><hr>
-<ul>
-<li>UNIX编程艺术</li>
-<li>设计模式</li>
-<li>重构-改善既有代码的设计</li>
-<li>代码大全</li>
-<li>编写可读代码的艺术</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -574,6 +373,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/04/linux-errno-含义/"
+           data-title="linux errno 含义" data-url="http://mmogamecoder.com/2016/08/04/linux-errno-含义/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -593,8 +400,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://ob7wrh16d.bkt.clouddn.com/image/zebra.png"
@@ -664,6 +480,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-include-asm-generic-errno-base-h"><span class="nav-number">1.</span> <span class="nav-text">/usr/include/asm-generic/errno-base.h</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-include-asm-generic-errno-h"><span class="nav-number">2.</span> <span class="nav-text">/usr/include/asm-generic/errno.h</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -760,6 +587,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
