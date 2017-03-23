@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="leveldb ltrace," />
+  <meta name="keywords" content="leveldb,ltrace," />
 
 
 
@@ -94,7 +94,7 @@
 <meta property="og:description" content="事故表现​    游戏服务器机器异常重启之后，    数据库回档（游戏服务器数据存放在redis并同时写入leveldb，回档操作是通过leveldb中的数据恢复到redis）完成之后发现玩家数据丢失严重，连续使用10天内备份的数据进行回档操作依然失败。
 问题分析
 首先，可能的问题是: 磁盘故障导致数据写入leveldb失败，进而导致数据回档失败。但是通过对服务器日志分析发现并没有写入失败记录，基">
-<meta property="og:updated_time" content="2017-03-23T10:28:30.000Z">
+<meta property="og:updated_time" content="2017-03-23T11:21:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="案例分析 - 2017/03/19数据库回档失败">
 <meta name="twitter:description" content="事故表现​    游戏服务器机器异常重启之后，    数据库回档（游戏服务器数据存放在redis并同时写入leveldb，回档操作是通过leveldb中的数据恢复到redis）完成之后发现玩家数据丢失严重，连续使用10天内备份的数据进行回档操作依然失败。
@@ -325,7 +325,7 @@
 <li><p><code>其次</code>，发现leveldb备份文件(20M)明显小于同期其他游戏区服leveldb备份文件(60M)，该服务器异常之前，玩家访问正常，随之想到的可能性就是: <strong>仅有leveldb数据在十天以前被异常操作删除，导致后续备份数据不完整</strong>。能够导致leveldb数据被操作删除的最大可能性就是，通过GM后台访问删除。由于GM后台操作没有日志可以查询，这种可能性不好验证，暂且放下，不深入考证。</p>
 </li>
 <li><p><code>最后</code>，在查看数据库日志的时候发现这台机器只有2017/01/07开始的日志，但是游戏服务器是2016/12/开服的，明显缺失日志。通过跟运维沟通，2017/01/07由于服务器机器异常数据进行了一次迁移。<strong>进一步分析ssdb(ssdb数据本质上是存放在leveldb中)日志，发现ssdb在7号14:47:50第一次启动成功后，15:01:05进行了一次数据库备份，时长在20毫秒左右，基本上可以判断此时的leveldb中保存数据很少，更可能的此时的启动的ssdb是空的。</strong> </p>
-<p>到此，<strong>我们基本上可以断定数据库备份回档失败的原因是，作为redis备份的leveldb，它丢失了数据迁移之前的leveldb数据，后续备份文件中保存的仅是增量数据，所有通过备份文件回档会丢失大量玩家数据。</strong></p>
+<p>到此，<strong>我们基本上可以断定数据库备份回档失败的原因是：作为redis备份的leveldb，它丢失了数据迁移之前的leveldb数据，后续备份文件中保存的仅是增量数据，所有通过备份文件回档会丢失大量玩家数据。</strong></p>
 <p>在我们明确事故产生的原因之后，但是还有一个<code>疑惑</code>: <strong>既然redis数据是通过leveldb恢复的，为什么redis数据在01/07没有缺少</strong>，再次查看ssdb，redis日志发现在第一次ssdb启动成功后，ssdb进程没有关闭的情况下，14:58:03再次进行启动操作，由于监听tcp port已经存在，导致第二次启动失败。同时也伴随两次redis的启动，但是不同的地方，redis在第二次启动之前关闭了之前运行的redis。现在我们可以做出一个假设（后面查看1/7迁移的另一组服务器部分操作日志验证了这种假设），操作如下:</p>
 <ol>
 <li>运维启动了一个空的ssdb和redis；</li>
@@ -367,7 +367,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/leveldb-ltrace/" rel="tag">#leveldb ltrace</a>
+            <a href="/tags/leveldb/" rel="tag">#leveldb</a>
+          
+            <a href="/tags/ltrace/" rel="tag">#ltrace</a>
           
         </div>
       
@@ -471,7 +473,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
