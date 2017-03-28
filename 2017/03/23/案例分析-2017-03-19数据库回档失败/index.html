@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="leveldb,ltrace," />
+  <meta name="keywords" content="leveldb,ltrace,案例分析," />
 
 
 
@@ -94,7 +94,7 @@
 <meta property="og:description" content="事故表现​    游戏服务器机器异常重启之后，    数据库回档（游戏服务器数据存放在redis并同时写入leveldb，回档操作是通过leveldb中的数据恢复到redis）完成之后发现玩家数据丢失严重，连续使用10天内备份的数据进行回档操作依然失败。
 问题分析
 首先，可能的问题是: 磁盘故障导致数据写入leveldb失败，进而导致数据回档失败。但是通过对服务器日志分析发现并没有写入失败记录，基">
-<meta property="og:updated_time" content="2017-03-23T11:21:12.000Z">
+<meta property="og:updated_time" content="2017-03-28T10:12:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="案例分析 - 2017/03/19数据库回档失败">
 <meta name="twitter:description" content="事故表现​    游戏服务器机器异常重启之后，    数据库回档（游戏服务器数据存放在redis并同时写入leveldb，回档操作是通过leveldb中的数据恢复到redis）完成之后发现玩家数据丢失严重，连续使用10天内备份的数据进行回档操作依然失败。
@@ -371,6 +371,8 @@
           
             <a href="/tags/ltrace/" rel="tag">#ltrace</a>
           
+            <a href="/tags/案例分析/" rel="tag">#案例分析</a>
+          
         </div>
       
 
@@ -473,7 +475,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
