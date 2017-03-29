@@ -245,6 +245,170 @@
             
               
                 
+                <a class="post-title-link" href="/2017/03/29/游戏服务器框架简述/" itemprop="url">
+                  游戏服务器框架简述
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-29T16:20:30+08:00" content="2017-03-29">
+              2017-03-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/游戏编程基础/" itemprop="url" rel="index">
+                    <span itemprop="name">游戏编程基础</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/03/29/游戏服务器框架简述/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/29/游戏服务器框架简述/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><p>目前游戏类型千差万别(卡牌，arpg，mmo，moba等)，每种类型游戏设计的侧重点不相同导致框架上的差异，不过即使相同类型游戏，不同设计师实现的框架也不经相同。这里我们不会针对各种纷杂的框架一一介绍，本着求同存异的态度，只是从分层架构设计的角度来阐述这些零零种种框架的本质。</p>
+<p>依据业务上的差异，基本上可以把游戏服务器框架映射到一个四层架构模型上，如图:</p>
+<p><img src="http://ob7wrh16d.bkt.clouddn.com/image/%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A1%86%E6%9E%B6.png" alt="游戏服务器分层模型"></p>
+<ul>
+<li><p><strong>Gateway Service</strong></p>
+<p>负责客户端网络接入，收敛网络入口。gateway的业务逻辑相对比较简单，主要处理网路消息的转化（客户端发送到后端服务器，后端服务器发送到客户端）与过滤。<strong>从它负责的业务角度上可以看出一个好的gateway service其实就是一个高性能的网络服务</strong>。针对高性能网络服务的实现有很多方式，常见模型有:</p>
+<ul>
+<li><code>多线程模型</code>，如果对网络编程不熟悉，可以选择开源实现，比如muduo， asio，netty等。</li>
+<li><code>纤程</code>，这一类的开源实现也有很多，语言级别的golang，erlang，单独库形式的libco，skynet。</li>
+</ul>
+<p>在我们游戏里面使用的方案是基于linux系统下的多线程模型。具体的实现是，one loop per thread，loop是基于反应器的设计模式实现。系统层面也会做相应的优化，比如cpu绑定，网卡的硬中断，软中断的优化。在这些完成之后，一个高性能的网络服务器基本上就成型了。在我们实际运行过程，单Gateway最高同时在线达到15w，机器整体的负载也不高。</p>
+</li>
+<li><p><strong>Logic Service</strong></p>
+<p>游戏逻辑主要在这个服务上处理。常见的实现，<strong>多IO线程加单独的业务线程</strong>。线程之间通过消息队列进行通信，消息队列简单可以用一个加锁的队列实现，也可以选择无锁队列（建议使用成熟的开源方案）。网络消息汇总到同一个线程中处理，也就是说游戏业务处理是单线程的，这种设计的优势在于避免业务开发中数据竞争。如果单线程实在不能满足性能要求，比如一些mmo游戏中，可以采用多进程的模式，也就是有多个logic service，配合可能也需要一些协调logic service的服务。</p>
+</li>
+<li><p><strong>Record Service</strong></p>
+<p>数据库的代理层，负责与数据库交互，解耦业务层的数据处理，适应数据库的改变，业务逻辑也相对简单。<strong>实现类似于Logic Service</strong>，它也可以合并到logic service里，但是独立开来，整体框架更加清晰。</p>
+</li>
+<li><p><strong>Database</strong></p>
+<p>顾名思义，保存玩家数据的地方。常见的游戏数据库包括: mysql，redis，mongodb等。我们游戏数据库选择是<a href="https://github.com/ivanabc/RedisLV" target="_blank" rel="external">RedisLV</a>，它解决了redis备份时候可能导致内存使用过高的问题。它使用的方法是为redis引入基于leveldb的数据落地方案。leveldb是google开源的kv数据库，使用lsm tree算法，数据写入的性能比较高。修改redis的源码，在redis中与写入操作相关的命令处理中，将改变同时写入leveldb，数据库的备份只针对leveldb做备份。</p>
+</li>
+</ul>
+<h3 id="服务驱动"><a href="#服务驱动" class="headerlink" title="服务驱动"></a>服务驱动</h3><p>这一节主要针对Logic Service，也就是游戏核心业务的驱动。游戏的业务主要是响应外部请求和处理内部状态改变，包括以下两种驱动方式:</p>
+<ul>
+<li><code>消息驱动</code>，针对各种网络消息做出响应。比如，玩家的点击反馈等。常见实现方式是通过命令模式，也就是消息封装成一个对象，不同的消息参数化。</li>
+<li><code>时间驱动</code>，一些业务需要基于时间而做出改变。比如，定时活动的开启，玩家数据定时的保存等。常见的实现方案是定时器，定时器采用的算法可以是时间轮，红黑树等。</li>
+</ul>
+<p>实现这两种驱动之后，游戏服务器可以响应外部和内部的改变，基本上服务就可以正常的运转。游戏业务与其他所有后端业务都一样，本身就是数据结构的组织。下面介绍一些常用的设计模式和算法帮助游戏业务的实现。</p>
+<h3 id="常用设计模式"><a href="#常用设计模式" class="headerlink" title="常用设计模式"></a>常用设计模式</h3><ul>
+<li>单例模式</li>
+<li>工厂模式</li>
+<li>命令模式</li>
+<li>订阅者模式</li>
+<li>状态模式</li>
+<li>策略模式</li>
+</ul>
+<h3 id="常用算法"><a href="#常用算法" class="headerlink" title="常用算法"></a>常用算法</h3><ul>
+<li>二分查找</li>
+<li>快排</li>
+<li>红黑树</li>
+<li>跳表</li>
+<li>优先级队列</li>
+<li>A*</li>
+<li>行为树</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/03/23/案例分析-2017-03-19数据库回档失败/" itemprop="url">
                   案例分析 - 2017/03/19数据库回档失败
                 </a>
@@ -1042,7 +1206,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
