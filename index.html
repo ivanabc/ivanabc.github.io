@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -100,7 +100,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
@@ -267,6 +267,260 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://mmogamecoder.com/2017/05/20/行为树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ivan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ob7wrh16d.bkt.clouddn.com/image/zebra.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="游戏编程">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/20/行为树/" itemprop="url">
+                  行为树
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-20T15:45:12+08:00">
+                2017-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/游戏编程基础/" itemprop="url" rel="index">
+                    <span itemprop="name">游戏编程基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>游戏开发中，怪物的AI系统主要实现方法有状态机，行为树等。本文主要介绍行为树的概念，以及基于<a href="http://www.behaviac.com/language/zh/%E9%A6%96%E9%A1%B5/" target="_blank" rel="external">behaviac</a>中行为树的源码分析。</p>
+<p>行为树是一种由根节点，控制节点以及执行节点组成的树状结构，也可以理解为一种图形化的模型语言。节点之间的连接用父子节点的形式表示。在behaviac中节点从左到右，从上到下依次执行。每个节点执行完成后将自身状态返回给它的父节点，父节点根据自身类型，综合子节点执行结果决定它的后续子节点的执行或者它自身的执行结果。</p>
+<p>节点执行结果有三种状态，分别是:</p>
+<ul>
+<li><strong>RUNNING</strong>：代表节点还没有执行完成；</li>
+<li><strong>SUCCESS</strong>：代表节点执行成功；</li>
+<li><strong>FAILURE</strong>：代表节点执行失败；</li>
+</ul>
+<h4 id="节点的分类"><a href="#节点的分类" class="headerlink" title="节点的分类"></a>节点的分类</h4><p>由上可知，行为树有三种类型的节点，分别是:</p>
+<ul>
+<li><code>根节点</code>：没有父节点，只有一个子节点，它是起始节点。</li>
+<li><code>控制节点</code>：有一个父节点，至少一个子节点。它有两种类型节点：<ul>
+<li><strong>组合节点</strong>，常见的组合节点包括:<ul>
+<li><strong>序列节点</strong>，依次执行所有子节点，如果某个子节点返回失败，序列节点结束后续子节点的执行并返回给它的父节点失败状态。如果所有子节点都返回成功，序列节点返回给它的父节点成功状态。类似编程中<strong>&amp;&amp;</strong>语法。</li>
+<li><strong>选择节点</strong>，依次执行所有子节点，如果某个子节点返回成功，序列节点结束后续子节点的执行并返回给它的父节点成功状态。如果所有子节点都返回失败，序列节点返回给它的父节点失败状态。类似编程中<strong>||</strong>语法。</li>
+<li><strong>并行节点</strong>，并行的执行所有子节点。</li>
+</ul>
+</li>
+<li><strong>装饰器节点</strong>，顾名思义，它对子节点的处理结果进行额外处理，并将处理后的结果返回给它的父节点，常见节点包括:<ul>
+<li><strong>非节点</strong>，对子节点的返回值取反。类似编程中<strong>!</strong>语法。</li>
+<li><strong>循环节点</strong>，循环执行子节点指定的次数。类似编程中<strong>while</strong>语法。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>执行节点</code>：有一个父节点，没有子节点。执行节点也可以称为叶节点，<strong>只有叶节点需要特别定制</strong>。它也包括两类节点:<ul>
+<li><strong>条件节点</strong>，根据条件的比较结果，返回成功或失败。</li>
+<li><strong>行为节点</strong>，根据动作结果返回成功，失败，或运行。</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://ob7wrh16d.bkt.clouddn.com/image/behavior.png" alt="简单的怪物AI"></p>
+<p>这张图表示一个简单的怪物AI行为树，绿色节点是根节点，蓝色节点是控制节点，其他的是执行节点。</p>
+<hr>
+<h3 id="behaviac源码分析"><a href="#behaviac源码分析" class="headerlink" title="behaviac源码分析"></a>behaviac源码分析</h3><p>下文是针对behaviac库中行为树源码的简单分析，并梳理其核心的结构与过程。</p>
+<h4 id="基础数据结构"><a href="#基础数据结构" class="headerlink" title="基础数据结构"></a>基础数据结构</h4><p>每种节点都是由BehaviorNode(或者它的子类)与BehaviorTask(或者它的子类)两部分组成，它们一一对应，通过BehaviorNode::CreateTask生成BehaviorTask，BehaviorTask::GetNode获得属于它的BehaviorNode。</p>
+<ul>
+<li>BehaviorNode，代表节点的配置信息，它是各类节点的配置所对应结构体的基类。如，<ul>
+<li>DecoratorNode</li>
+<li>BehaviorTree</li>
+<li>Action</li>
+</ul>
+</li>
+<li>BehaviorTask，代表节点的运行时结构，它是各类节点运行时结构体的基类。如，<ul>
+<li>CompositeTask</li>
+<li>BehaviorTreeTask</li>
+<li>ActionTask</li>
+</ul>
+</li>
+</ul>
+<h4 id="BehaviorTask执行流程"><a href="#BehaviorTask执行流程" class="headerlink" title="BehaviorTask执行流程"></a>BehaviorTask执行流程</h4><p>每个节点的执行是通过<strong>BehaviorTask::exec</strong>实现的，BehaviorTask::exec过程简化如下:</p>
+<ol>
+<li><code>首先</code>，BehaviorTask::onenter_action，在进入节点之前执行，例如一些前置判断。<strong>virtual函数</strong> BehaviorTask::onenter，子类的差异化通过此函数实现。</li>
+<li><code>其次</code>，<strong>virtual函数</strong> BehaviorTask::update_current，节点自身的执行过程，子类的差异化通过它与BehaviorTask::update两个函数实现。</li>
+<li><code>最后</code>，BehaviorTask::onexit_action，在退出节点之后执行，例如一些后置判断。<strong>virtual函数</strong> BehaviorTask::onexit，子类的差异化通过此函数实现。</li>
+</ol>
+<h4 id="常见节点分析"><a href="#常见节点分析" class="headerlink" title="常见节点分析"></a>常见节点分析</h4><p>从上可知，每种类型的节点都有两部组成，详细的代码不一一罗列，简单说明如下:</p>
+<ul>
+<li>行为节点（action.h action.cpp）<ul>
+<li>struct Action - 配置信息</li>
+<li>struct ActionTask - 运行时信息</li>
+</ul>
+</li>
+<li>序列节点（sequence.h sequence.cpp）<ul>
+<li>struct Sequence - 配置信息</li>
+<li>struct SequenceTask - 运行时信息</li>
+</ul>
+</li>
+<li>选择节点（selector.h selector.cpp）<ul>
+<li>struct Selector -  配置信息</li>
+<li>struct SelectorTask - 运行时信息</li>
+</ul>
+</li>
+<li>并行节点（parallor.h parallor.cpp）<ul>
+<li>struct Parallor - 配置信息</li>
+<li>struct ParallorTask - 运行时信息</li>
+</ul>
+</li>
+</ul>
+<h4 id="自定义类型信息加载"><a href="#自定义类型信息加载" class="headerlink" title="自定义类型信息加载"></a>自定义类型信息加载</h4><p>behaviac系统中自定义的类型信息会生成单独的cpp文件，运行时自动加载(通过static变量的初始化)到系统中，过程如下:</p>
+<ol>
+<li>AgentMeta::SetBehaviorLoader，被自定义类型信息生产的代码(behaviac_agent_meta.cpp)中调用。</li>
+<li>TryStart </li>
+<li>BaseStart</li>
+<li>AgentMeta::Register</li>
+<li>BehaviorLoaderImplement::load</li>
+</ol>
+<h4 id="行为树执行流程"><a href="#行为树执行流程" class="headerlink" title="行为树执行流程"></a>行为树执行流程</h4><p>首先介绍一下BehaviorTree，BehaviorTreeTask两个结构体，</p>
+<ul>
+<li>BehaviorTree，它是BehaviorNode的子类，代表一颗完整行为树配置信息，在Workspace::Load中生成。</li>
+<li>BehaviorTreeTask，它是BehaviorTask的子类，在Workspace::CreateBehaviorTreeTask中生成，对于BehaviorTree运行时结构体。</li>
+</ul>
+<p>行为树执行过程就是BehaviorTreeTask执行过程，如下:</p>
+<ol>
+<li>Agent::btexec，Agent中包含BehaviorTreeTask</li>
+<li>BehaviorTreeTask::exec</li>
+<li>BehaviorTask::exec<ul>
+<li>onenter_action</li>
+<li>update_current</li>
+<li>onexit_action</li>
+</ul>
+</li>
+<li>BranchTask::SetCurrentTask，它涉及子节点RUNNING状态的处理，详见代码。</li>
+</ol>
+<p>以上就是简单的行为树源码分析。这里也说明一下我个人阅读一个代码库方法：</p>
+<ol>
+<li>对于库的作用有一个基本的了解，通过阅读相关文档，在这里，例如:<a href="https://en.wikipedia.org/wiki/Behavior_tree_(artificial_intelligence,_robotics_and_control" target="_blank" rel="external">Behavior Tree(wiki)</a>)，<a href="http://www.behaviac.com/language/zh/%E9%A6%96%E9%A1%B5/" target="_blank" rel="external">behaviac-腾讯开源项目</a></li>
+<li>从入口函数开始浏览整个代码，比如Agent::btexec。</li>
+<li>找到核心点仔细阅读，比如BehaviorNode与BehaviorTask。</li>
+<li>库中不理解的知识点，有针对性的阅读相关代码，例如并行节点。</li>
+<li>多调试。</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://mmogamecoder.com/2017/03/29/游戏服务器框架简述/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -341,16 +595,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/29/游戏服务器框架简述/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/29/游戏服务器框架简述/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -539,16 +783,6 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/23/案例分析-2017-03-19数据库回档失败/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/23/案例分析-2017-03-19数据库回档失败/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -717,16 +951,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/08/18/游戏服务器编程资料/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/游戏服务器编程资料/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -922,16 +1146,6 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/08/18/linux-performance-tools/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/linux-performance-tools/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -1074,16 +1288,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/08/04/linux-errno-含义/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/04/linux-errno-含义/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1229,16 +1433,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/07/30/游戏服务器编程概述/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/30/游戏服务器编程概述/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1443,7 +1637,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1465,7 +1659,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1542,7 +1736,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Pisces
   </a>
 </div>
 
@@ -1616,6 +1810,13 @@
   
   
 
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
   
 
   
@@ -1627,35 +1828,30 @@
 
   
 
-  
-    
+
   
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"ivansi"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
+
+
+
+	
+
+
+
+
 
   
     
-    
-    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-    <script src="/js/src/hook-duoshuo.js"></script>
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "cbdcf716a5e2459fb3948a51e5d55c93",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
   
-
-
-
-
-
-
 
 
 
