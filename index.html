@@ -977,12 +977,14 @@
         
           
             <h2 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h2><ul>
-<li><code>参考图书</code>  <ul>
-<li><strong>鸟哥的Linux私房菜基础学习篇</strong></li>
+<li><p><code>常用工具</code>  </p>
+<ul>
+<li><strong>bash  awk  sed  grep  find  wc  sort  uniq</strong></li>
 </ul>
 </li>
-<li><code>常用工具</code>  <ul>
-<li><strong>bash  awk  sed  grep  find  wc  sort  uniq</strong></li>
+<li><p><code>参考图书</code>  </p>
+<ul>
+<li><strong>鸟哥的Linux私房菜基础学习篇</strong></li>
 </ul>
 </li>
 </ul>
@@ -992,6 +994,7 @@
 <li><strong>C++ Primer</strong> </li>
 <li><strong>Effective C++</strong> </li>
 <li><strong>Effective Modern C++</strong></li>
+<li><strong>深度探索C++对象模型</strong></li>
 </ul>
 </li>
 <li><code>golang 参考图书</code>  <ul>
@@ -1015,33 +1018,36 @@
 </ul>
 <hr>
 <h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ul>
-<li><code>mysq 参考图书</code><ul>
-<li><strong>高性能MySQL</strong></li>
-</ul>
-</li>
+<li><code>mysql</code></li>
 <li><code>postgresql</code></li>
-<li><a href="https://github.com/antirez/redis" target="_blank" rel="external">redis</a>   <em>建议学习源码</em><ul>
-<li>参考图书 <strong>Redis设计与实现</strong></li>
-</ul>
-</li>
+<li><a href="https://github.com/antirez/redis" target="_blank" rel="external">redis</a>   <em>建议学习源码</em></li>
+<li><a href="https://github.com/ivanabc/RedisLV" target="_blank" rel="external">redisLV</a>  <em>增加redis内存数据实时写入leveldb的机制</em></li>
 <li><a href="https://github.com/google/leveldb" target="_blank" rel="external">leveldb</a>   <em>建议学习源码</em></li>
+<li><a href="https://github.com/facebook/rocksdb" target="_blank" rel="external">rocksdb</a>  <em>leveldb加强版</em></li>
 <li><a href="https://github.com/ivanabc/RedisLV" target="_blank" rel="external">redisLV</a>  <em>增加redis内存数据实时写入leveldb的机制</em></li>
 <li>hbase  <em>目前用来保存玩家行为日志，后续会被内部基于rocksdb开发的组件替代</em></li>
-<li><a href="https://github.com/pingcap/tidb" target="_blank" rel="external">tidb</a></li>
+<li><a href="https://github.com/pingcap/tidb" target="_blank" rel="external">tidb</a> </li>
+<li><code>参考图书</code><ul>
+<li><strong>高性能MySQL</strong></li>
+<li><strong>Redis设计与实现</strong></li>
+</ul>
+</li>
 </ul>
 <hr>
-<h2 id="网络库"><a href="#网络库" class="headerlink" title="网络库"></a>网络库</h2><ul>
+<h2 id="网络编程与网络库"><a href="#网络编程与网络库" class="headerlink" title="网络编程与网络库"></a>网络编程与网络库</h2><ul>
 <li><a href="http://libevent.org" target="_blank" rel="external">libevent</a>   <em>建议学习源码</em></li>
-<li><a href="https://github.com/chenshuo/muduo" target="_blank" rel="external">muduo</a>   <em>建议学习源码</em><ul>
-<li>参考图书  <strong>Linux多线程服务器端编程</strong></li>
-</ul>
-</li>
+<li><a href="https://github.com/chenshuo/muduo" target="_blank" rel="external">muduo</a>   <em>建议学习源码</em></li>
 <li><a href="http://zeromq.org" target="_blank" rel="external">zeromq</a>   <em>缅怀作者 Pieter Hintjens</em></li>
-<li><a href="http://netty.io" target="_blank" rel="external">netty</a>    <em>Java开发，功能完善</em><ul>
-<li>参考图书 <strong>Netty 实战</strong></li>
+<li><a href="http://netty.io" target="_blank" rel="external">netty</a>    <em>Java开发，功能完善</em></li>
+<li><a href="https://github.com/libuv/libuv" target="_blank" rel="external">libuv</a>  <em>NodeJS网络库</em></li>
+<li><code>参考图书</code><ul>
+<li><strong>TCP/IP详解 卷一</strong></li>
+<li><strong>C++网络编程 卷一 卷二</strong></li>
+<li><strong>面向模式的软件体系结构 卷二</strong></li>
+<li><strong>Linux多线程服务器端编程</strong></li>
+<li><strong>Netty 实战</strong></li>
 </ul>
 </li>
-<li><a href="https://github.com/libuv/libuv" target="_blank" rel="external">libuv</a></li>
 </ul>
 <hr>
 <h2 id="日志系统"><a href="#日志系统" class="headerlink" title="日志系统"></a>日志系统</h2><ul>
@@ -1051,7 +1057,7 @@
 <li><code>离线分析</code>  <strong>map reduce</strong>  <strong>hive</strong></li>
 </ul>
 </li>
-<li><code>存储</code>  <strong>hdfs</strong>  <strong>hbase</strong>  <strong>mysql</strong>  <strong>timedb</strong></li>
+<li><code>存储</code>  <strong>hdfs</strong>  <strong>hbase</strong>  <strong>mysql</strong>  <strong>timedb(内部使用，基于Rocksdb)</strong></li>
 <li><code>参考图书</code><ul>
 <li><strong>Apache Kafka 源码剖析</strong></li>
 </ul>
@@ -1064,14 +1070,22 @@
 <li><code>文件系统 常用工具</code>  <strong>sar</strong> </li>
 <li><code>磁盘 常用工具</code>  <strong>iostat</strong>  <strong>iotop</strong>  <strong>dstat</strong></li>
 <li><code>网络 常用工具</code>  <strong>tcpdump</strong>   <strong>wireshark</strong>  <strong>sar</strong>  <strong>ss</strong>   <strong>netstat</strong>  <strong>lsof</strong>  <strong>mtr</strong>  <strong>traceroute</strong>  <strong>dstat</strong></li>
-<li><code>参考图书</code><ol>
+<li><code>参考图书</code><ul>
+<li><strong>深入理解计算机系统</strong></li>
 <li><strong>Linux/Unix系统编程手册</strong></li>
 <li><strong>Linux内核设计与实现</strong></li>
-<li><strong>性能之巅</strong></li>
-<li><strong>TCP/IP详解 卷一</strong></li>
 <li><strong>Wireshark网络分析就这么简单</strong></li>
 <li><strong>Wireshark网络分析的艺术</strong></li>
-</ol>
+<li><strong>性能之巅</strong></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="游戏开发"><a href="#游戏开发" class="headerlink" title="游戏开发"></a>游戏开发</h2><ul>
+<li><code>参考图书</code><ul>
+<li><strong>游戏编程精粹 1-7 </strong></li>
+<li><strong>游戏编程模式</strong></li>
+</ul>
 </li>
 </ul>
 <hr>
@@ -1081,6 +1095,26 @@
 <li><strong>重构 改善既有代码的设计</strong></li>
 <li><strong>编程珠玑</strong></li>
 <li><strong>代码大全</strong></li>
+<li><strong>UNIX编写艺术</strong></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="杂谈"><a href="#杂谈" class="headerlink" title="杂谈"></a>杂谈</h2><ul>
+<li><code>参考图书</code><ul>
+<li><strong>松本行弘的程序世界</strong></li>
+<li><strong>代码的未来</strong></li>
+<li><strong>程序员的自我修养</strong></li>
+<li><strong>Software Design</strong> 杂志</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="怀旧"><a href="#怀旧" class="headerlink" title="怀旧"></a>怀旧</h2><ul>
+<li><code>参考图书</code><ul>
+<li><strong>C程序设计语言</strong></li>
+<li><strong>深入浅出MFC</strong></li>
+<li><strong>C专家编程</strong></li>
 </ul>
 </li>
 </ul>
